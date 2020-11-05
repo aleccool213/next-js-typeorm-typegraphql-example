@@ -1,15 +1,8 @@
-import { ApolloServer, gql } from "apollo-server-micro";
+import { ApolloServer, IResolvers } from "apollo-server-micro";
 
-const typeDefs = gql`
-  type Query {
-    users: [User!]!
-  }
-  type User {
-    name: String
-  }
-`;
+import { typeDefs } from "../../lib/schema";
 
-const resolvers = {
+const resolvers: IResolvers = {
   Query: {
     users(parent, args, context) {
       return [{ name: "Nextjs" }, { name: "Wow!" }];

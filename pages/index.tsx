@@ -1,6 +1,7 @@
+import React from "react";
 import useSWR from "swr";
 
-const fetcher = (query) =>
+const fetcher = (query: any) =>
   fetch("/api/graphql", {
     method: "POST",
     headers: {
