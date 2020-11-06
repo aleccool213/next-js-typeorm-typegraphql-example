@@ -22,7 +22,7 @@ export default function Index() {
 
   return (
     <div>
-      {users.map((user, i) => (
+      {users.map((user: any, i: number) => (
         <div key={i}>{user.name}</div>
       ))}
     </div>
