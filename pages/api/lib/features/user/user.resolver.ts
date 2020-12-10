@@ -1,4 +1,4 @@
-import { Arg, Authorized, Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver } from "type-graphql";
 
 import { UserService } from "../../services/user/user.service";
 
@@ -10,7 +10,6 @@ export class UserResolver {
   constructor(private userService: UserService) {}
 
   @Query(() => User)
-  @Authorized()
   async recipe(@Arg("id") id: string) {
     const recipe = await this.userService.findById(id);
     if (recipe === undefined) {
