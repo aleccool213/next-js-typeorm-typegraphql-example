@@ -1,0 +1,32 @@
+type Query {
+  user(id: ID!): User!
+}
+type AccountSettings {
+  publicLinkUrl: String!
+}
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  accountSettings: AccountSettings!
+  externalCalendars: [ExternalCalendar!]!
+  eventTypes: [EventType!]!
+  scheduledEvents: 
+}
+type ExternalCalendar {
+  id: ID!
+  CalDAVUrl: String!
+}
+type EventType {
+  id: ID!
+  title: String!
+  timeLength: Int!
+  UrlSlug: String!
+  color: String!
+}
+type ScheduledEvent {
+  id: ID!
+  participantName: String!
+  participantEmail: String!
+  eventType: EventType!
+}

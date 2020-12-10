@@ -11,4 +11,4 @@ I wanted to make this application as easy to spin up as possible. That way I can
 * MongoDB for data persistance
   * Recommended Provider: MongoDB Atlas
 * Emails for notifications:
-  * Recommend Provider: Sendgrid (note: have a good self hosted alternative to this? please make an issue to discuss)
+  * Recommend Provider: Sendgrid

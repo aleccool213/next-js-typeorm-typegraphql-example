@@ -1,16 +1,7 @@
-import { ApolloServer, IResolvers } from "apollo-server-micro";
+import { ApolloServer, gql } from "apollo-server-micro";
+import { buildSchema } from "type-graphql";
 
-import { typeDefs } from "../../lib/schema";
-
-const resolvers: IResolvers = {
-  Query: {
-    users(parent, args, context) {
-      return [{ name: "Nextjs" }, { name: "Wow!" }];
-    },
-  },
-};
-
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
+import { UserResolver } from "./lib/features/user/user.resolver";
 
 export const config = {
   api: {
@@ -18,4 +9,11 @@ export const config = {
   },
 };
 
-export default apolloServer.createHandler({ path: "/api/graphql" });
+export default async () => {
+  const schema = await buildSchema({
+    resolvers: [UserResolver],
+  });
+
+  const apolloServer = new ApolloServer({ schema });
+  apolloServer.createHandler({ path: "/api/graphql" });
+};
