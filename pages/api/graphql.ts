@@ -3,6 +3,7 @@ import "reflect-metadata";
 
 import { ApolloServer } from "apollo-server-micro";
 import { buildSchema } from "type-graphql";
+import { IncomingMessage, ServerResponse } from "http";
 
 import { UserResolver } from "./lib/features/user/user.resolver";
 
@@ -12,10 +13,18 @@ export const config = {
   },
 };
 
-const schema = await buildSchema({
-  resolvers: [UserResolver],
-});
+const buildServer = async (): Promise<ApolloServer> => {
+  const schema = await buildSchema({
+    resolvers: [UserResolver],
+  });
+  return new ApolloServer({ schema });
+};
 
-const apolloServer = new ApolloServer({ schema });
+let server: ApolloServer | null = null;
 
-export default apolloServer.createHandler({ path: "/api/graphql" });
+export default async (req: IncomingMessage, res: ServerResponse) => {
+  const apolloServer: ApolloServer = server || (await buildServer());
+  return apolloServer.createHandler({
+    path: "/api/graphql",
+  })(req, res);
+};

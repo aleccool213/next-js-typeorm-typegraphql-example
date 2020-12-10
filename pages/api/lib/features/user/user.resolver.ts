@@ -10,11 +10,15 @@ export class UserResolver {
   constructor(private userService: UserService) {}
 
   @Query(() => User)
-  async recipe(@Arg("id") id: string) {
-    const recipe = await this.userService.findById(id);
-    if (recipe === undefined) {
-      throw new UserNotFoundError(id);
-    }
-    return recipe;
+  async user(@Arg("id") id: string) {
+    return Promise.resolve({
+      id,
+      name: "Nextjs",
+    });
+    // const user = await this.userService.findById(id);
+    // if (user === undefined) {
+    //   throw new UserNotFoundError(id);
+    // }
+    // return user;
   }
 }
