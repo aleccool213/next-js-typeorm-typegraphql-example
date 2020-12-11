@@ -5,7 +5,7 @@ import { ApolloServer } from "apollo-server-micro";
 import { buildSchema } from "type-graphql";
 import { IncomingMessage, ServerResponse } from "http";
 
-import { UserResolver } from "./lib/features/user/user.resolver";
+import { UserResolver } from "./lib/features/user";
 
 export const config = {
   api: {
@@ -13,18 +13,21 @@ export const config = {
   },
 };
 
-const buildServer = async (): Promise<ApolloServer> => {
-  const schema = await buildSchema({
-    resolvers: [UserResolver],
-  });
-  return new ApolloServer({ schema });
+let apolloServerHandler: (req: any, res: any) => Promise<void>;
+
+const getApolloServerHandler = async () => {
+  if (!apolloServerHandler) {
+    const schema = await buildSchema({
+      resolvers: [UserResolver],
+    });
+    apolloServerHandler = new ApolloServer({ schema }).createHandler({
+      path: "/api/graphql",
+    });
+  }
+  return apolloServerHandler;
 };
 
-let server: ApolloServer | null = null;
-
 export default async (req: IncomingMessage, res: ServerResponse) => {
-  const apolloServer: ApolloServer = server || (await buildServer());
-  return apolloServer.createHandler({
-    path: "/api/graphql",
-  })(req, res);
+  const apolloServerHandler = await getApolloServerHandler();
+  return apolloServerHandler(req, res);
 };

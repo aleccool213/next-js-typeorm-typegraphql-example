@@ -13,18 +13,16 @@ const fetcher = (query: any) =>
     .then((json) => json.data);
 
 export default function Index() {
-  const { data, error } = useSWR("{ users { name } }", fetcher);
+  const { data, error } = useSWR(`{ user(id: "1") { id name } }`, fetcher);
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
-  const { users } = data;
+  const { user } = data;
 
   return (
     <div>
-      {users.map((user: any, i: number) => (
-        <div key={i}>{user.name}</div>
-      ))}
+      <div>{user.name}</div>
     </div>
   );
 }
