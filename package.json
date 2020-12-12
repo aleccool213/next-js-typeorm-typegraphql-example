@@ -18,13 +18,16 @@
     "babel-plugin-transform-typescript-metadata": "^0.3.1",
     "class-validator": "^0.12.2",
     "graphql": "^15.4.0",
+    "mongodb": "^3.6.3",
     "next": "10.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "reflect-metadata": "^0.1.13",
     "swr": "^0.3.8",
     "type-graphql": "^1.1.1",
-    "typedi": "^0.8.0"
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.29",
+    "typeorm-typedi-extensions": "^0.2.3"
   },
   "devDependencies": {
     "@types/node": "^14.14.6",
