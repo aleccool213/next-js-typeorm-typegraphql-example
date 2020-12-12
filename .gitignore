@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# mongodb local docker-compose volume data
+data
