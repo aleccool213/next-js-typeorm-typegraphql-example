@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "build": "next build",
     "clean": "rm -r .next",
     "dev": "next dev",
-    "build": "next build",
     "start": "next start",
     "test": "echo 'nothing here yet!'"
   },

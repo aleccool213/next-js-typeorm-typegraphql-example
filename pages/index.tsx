@@ -13,9 +13,9 @@ const fetcher = (query: any) =>
     .then((json) => json.data);
 
 export default function Index() {
-  const { data, error } = useSWR(`{ user(id: "1") { id name } }`, fetcher);
+  const { data, error } = useSWR(`{ user(id: "1") { _id name } }`, fetcher);
 
-  if (error) return <div>Failed to load</div>;
+  if (error || (data && data.errors)) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
   const { user } = data;

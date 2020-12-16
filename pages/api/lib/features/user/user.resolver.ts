@@ -1,18 +1,20 @@
 import { Arg, Query, Resolver } from "type-graphql";
-import { Repository } from "typeorm";
-import { InjectRepository } from "typeorm-typedi-extensions";
 
+import { createConnection } from "../../db";
 import { User } from "./user.type";
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>
-  ) {}
+  constructor() {}
 
   @Query(() => User)
-  async user(@Arg("id") id: string) {
-    // TODO: current error: "message": "Cannot read property 'findOne' of undefined",
-    return this.userRepository.findOne(id);
+  async user(@Arg("email") email: string): Promise<User> {
+    const connection = await createConnection();
+    const userRepository = connection.getRepository(User);
+    const user = await userRepository.findOne({ email });
+    if (!user) {
+      throw new Error(`Could not find user with email: ${email}`);
+    }
+    return user;
   }
 }
