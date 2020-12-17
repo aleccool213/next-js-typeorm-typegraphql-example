@@ -1,6 +1,6 @@
 import { Arg, Query, Resolver } from "type-graphql";
 
-import { createConnection } from "../../db";
+import { createConnection } from "../../db/db";
 import { User } from "./user.type";
 
 @Resolver(() => User)

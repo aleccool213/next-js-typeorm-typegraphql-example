@@ -4,10 +4,8 @@ import "reflect-metadata";
 import { ApolloServer } from "apollo-server-micro";
 import { buildSchema } from "type-graphql";
 import { IncomingMessage, ServerResponse } from "http";
-import Container from "typedi";
 
 import { User, UserResolver } from "./lib/features/user";
-import { startupDatabase } from "./lib/db";
 
 export interface Context {
   user: User;
@@ -15,8 +13,6 @@ export interface Context {
 
 // register 3rd party IOC container
 // TypeORM.useContainer(Container);
-
-startupDatabase();
 
 export const config = {
   api: {

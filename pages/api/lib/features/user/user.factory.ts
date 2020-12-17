@@ -29,10 +29,12 @@ export const UserFactory = {
 export async function seedDatabase(connection: Connection) {
   const userRepository = connection.getRepository(User);
 
+  console.log("Finding user...");
   let defaultUser = await userRepository.findOne({
     email: "alec@alec.coffee",
   });
   if (!defaultUser) {
+    console.log("Found no user, creating one now...");
     defaultUser = await UserFactory.create(connection, {
       name: "Alec Brunelle",
       createdAt: new Date(),

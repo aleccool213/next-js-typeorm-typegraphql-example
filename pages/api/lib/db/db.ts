@@ -1,15 +1,15 @@
 import * as TypeORM from "typeorm";
-import { User } from "./features/user";
-import { seedDatabase } from "./features/user/user.factory";
+
+import { User } from "../features/user";
 
 let databaseConnection: TypeORM.Connection;
 
 export const createConnection = async (): Promise<TypeORM.Connection> => {
+  if (databaseConnection) {
+    return databaseConnection;
+  }
   // create TypeORM connection
   try {
-    if (databaseConnection) {
-      return databaseConnection;
-    }
     databaseConnection = await TypeORM.createConnection({
       name: "api-startup",
       type: "mongodb",
@@ -32,16 +32,4 @@ export const createConnection = async (): Promise<TypeORM.Connection> => {
     throw new Error("database connection still does not exist!");
   }
   return databaseConnection;
-};
-
-export const startupDatabase = async () => {
-  await createConnection();
-
-  // seed database with some data
-  // const { defaultUser } = await seedDatabase();
-
-  // create mocked context
-  // const context: Context = { user: defaultUser };
-
-  await seedDatabase(databaseConnection);
 };
