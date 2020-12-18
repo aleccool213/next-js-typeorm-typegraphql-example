@@ -9,7 +9,7 @@ export const UserFactory = {
       ...attrs,
     };
 
-    return getRepository(User).create(userAttrs);
+    return connection.getRepository(User).create(userAttrs);
   },
 
   create: async (connection: Connection, attrs: Partial<User> = {}) => {
