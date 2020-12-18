@@ -16,6 +16,6 @@ RUN yarn install
 
 COPY . /srv/app/
 
-# Start CalSync
+# Start the App
 
 CMD yarn start

@@ -1,13 +1,11 @@
 version: "3"
 services:
-  ackee:
-    image: aleccool213/calsync
-    container_name: calsync
+  app:
+    build: .
+    container_name: next-js-typeorm-typegraphql
     restart: always
     ports:
       - "3000:3000"
-    environment:
-      - CALSYNC_MONGODB=mongodb://mongo:27017/calsync
     env_file:
       - .env.local
     depends_on:
